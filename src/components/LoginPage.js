@@ -32,6 +32,10 @@ export class LoginPage extends Component {
         this.props.login(username,password)
     }
     
+    redirectToRegisterPage(){
+        
+    }
+    
     render() {
         const {
             username, 
@@ -70,6 +74,7 @@ export class LoginPage extends Component {
                     </div>
                     <div className="form-group">
                         <button className="btn btn-primary" onClick={this.handleSubmit}>Login</button>
+                        <Link to="/signup" className="btn btn-link"> Register</Link> 
                     </div>
                 </form>
             </div>

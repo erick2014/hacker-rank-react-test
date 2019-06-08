@@ -30,13 +30,16 @@ export function configureFakeAPI() {
                 if (url.endsWith('/users/register') && opts.method === 'POST') {
                     let newUser = JSON.parse(opts.body);
 
-                    let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                    let duplicateUser = users.filter(user =>  user.username === newUser.username).length;
                     if (duplicateUser) {
                         reject('Username "' + newUser.username + '" is already taken');
                         return;
                     }
 
-                    newUser.id = users.length ? Math.max(...users.map(user => user.id)) + 1 : 1;
+                    newUser.id = users.length 
+                        ? Math.max(...users.map(user => user.id)) + 1 
+                        : 1;
+                        
                     users.push(newUser);
                     localStorage.setItem('users', JSON.stringify(users));
 

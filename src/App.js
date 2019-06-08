@@ -1,9 +1,11 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { BrowserRouter, Router, Route,Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { PrivateRoute } from './PrivateRoute.js';
 import { history } from './helpers';
 import { alertActions } from './actions';
+
+// @components
 import { HomePage } from './components/HomePage';
 import LoginPage from './components/LoginPage';
 import { RegisterPage } from './components/RegisterPage';
@@ -42,18 +44,26 @@ class App extends React.Component {
     }
 
     render() {
+        const {authentication} = this.props;
         return (
+
               <div className="container">
                 {this.renderAlertMessage()}
                  <div className="col-sm-8 col-sm-offset-2">
-                     <LoginPage />
+                   <Switch>
+                        <Route exact path="/" render={()=> <HomePage {...authentication} /> } />
+                        <Route exact path="/signup" component={RegisterPage} />
+                        <Route exact path="/login" component={LoginPage} />
+                    </Switch>
                  </div>
               </div>
+
         );
     }
 }
 
 const mapStateToProps = (state) => ({
+    authentication: state.authentication,
     alert: state.alert
 })
 
