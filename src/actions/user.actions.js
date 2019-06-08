@@ -3,18 +3,17 @@ import { userService } from '../services';
 import { alertActions } from './';
 import { history } from '../helpers';
 
-export const userActions = {
-    login,
-    logout,
-    register
-};
 
 function login(username, password) {
+    console.log('calling login action..')
     // return the promise using fetch which adds to localstorage on resolve
-
-    function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
-    function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+     return userService.login(username,password)
+      .then(resp=>console.log('resp ??',resp))
+      .catch(err=>console.log('err ',err))
+    /*function request(user) { return { type: userConstants.LOGIN_REQUEST, user } }
+     function success(user) { return { type: userConstants.LOGIN_SUCCESS, user } }
+     function failure(error) { return { type: userConstants.LOGIN_FAILURE, error } }
+    */
 }
 
 function logout() {
@@ -28,3 +27,9 @@ function register(user) {
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
 }
+
+export const userActions = {
+    login,
+    logout,
+    register
+};

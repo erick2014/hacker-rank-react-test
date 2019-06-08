@@ -1,17 +1,12 @@
-export const userService = {
-    login,
-    logout,
-    register
-};
-
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-
+    
     // call `/users/authenticate` with requestOptions to authenticate the login process
+    return fetch('/users/authenticate', requestOptions)
     
 }
 
@@ -38,3 +33,9 @@ function handleResponse(response) {
 
     return response.json();
 }
+
+export const userService = {
+    login,
+    logout,
+    register
+};
