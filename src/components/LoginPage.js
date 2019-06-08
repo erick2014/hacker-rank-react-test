@@ -31,13 +31,14 @@ export class LoginPage extends Component {
         this.setState({submitted:true})
         this.props.login(username,password)
     }
-
+    
     render() {
         const {
             username, 
             password, 
             submitted 
         } = this.state;
+        
         
         return (
             <div className="col-md-6 col-md-offset-3">
@@ -76,16 +77,12 @@ export class LoginPage extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        state: state
-    }
-}
+const mapStateToProps = (state) => ({
+    authentication: state.authentication
+})
 
-function mapDispatchToProps(){
-    return{
-        login: userActions.login
-    }
+const mapDispatchToProps = {
+    login: userActions.login
 }
 
 export default connect(mapStateToProps,mapDispatchToProps)(LoginPage)

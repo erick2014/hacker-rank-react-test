@@ -12,32 +12,54 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
-        //const { dispatch } = this.props;
        history.listen((location, action) => {
            
-        });
+       });
+    }
+    
+    renderAlertMessage(){
+        const {
+            alert:{ type, message },
+            clearAlert
+        } = this.props;
+        
+        if( !type ){
+            return null;
+        }
+        
+        
+        return(
+            <div className={'alert '+ type }>
+                {message}.
+                <button 
+                    type="button" 
+                    className="close"
+                    data-dismiss="alert"
+                    onClick={clearAlert}
+                >&times;</button>
+            </div>
+        )
     }
 
     render() {
-
-        // const { alert } = this.props;
         return (
               <div className="container">
-                  <div className="col-sm-8 col-sm-offset-2">
+                {this.renderAlertMessage()}
+                 <div className="col-sm-8 col-sm-offset-2">
                      <LoginPage />
-                  </div>
+                 </div>
               </div>
         );
     }
 }
 
-/*function mapStateToProps(state) {
-    console.log('state ? ',state)
-    const { alert } = state;
-    return {
-        alert: state.alert
-    };
-}*/
+const mapStateToProps = (state) => ({
+    alert: state.alert
+})
+
+const mapDispatchToProps = {
+    clearAlert: alertActions.clear
+}
 
 
-export default App;
+export default connect(mapStateToProps,mapDispatchToProps)(App);
