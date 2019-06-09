@@ -20,6 +20,12 @@ export class LoginPage extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+    
+    componentDidUpdate(prevProps){
+        if(!prevProps.authentication.loggedIn && this.props.authentication.loggedIn){ 
+            this.props.history.push("/");
+        }
+    }
 
     handleChange(e,fieldName) {
         this.setState({[fieldName]: e.target.value})
@@ -32,17 +38,13 @@ export class LoginPage extends Component {
         this.props.login(username,password)
     }
     
-    redirectToRegisterPage(){
-        
-    }
-    
     render() {
+
         const {
             username, 
             password, 
             submitted 
         } = this.state;
-        
         
         return (
             <div className="col-md-6 col-md-offset-3">
