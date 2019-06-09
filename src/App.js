@@ -8,7 +8,7 @@ import { alertActions } from './actions';
 // @components
 import { HomePage } from './components/HomePage';
 import LoginPage from './components/LoginPage';
-import { RegisterPage } from './components/RegisterPage';
+import RegisterPage from './components/RegisterPage';
 
 class App extends React.Component {
     constructor(props) {
@@ -44,6 +44,7 @@ class App extends React.Component {
     }
 
     render() {
+
         const {authentication} = this.props;
         return (
 

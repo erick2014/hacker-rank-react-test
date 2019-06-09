@@ -31,6 +31,7 @@ export function configureFakeAPI() {
                     let newUser = JSON.parse(opts.body);
 
                     let duplicateUser = users.filter(user =>  user.username === newUser.username).length;
+                    
                     if (duplicateUser) {
                         reject('Username "' + newUser.username + '" is already taken');
                         return;

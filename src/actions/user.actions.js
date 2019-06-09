@@ -18,15 +18,28 @@ const failure = (error) => ({
    error 
 })
 
+const signUprequest = (user)=> ({
+    type: userConstants.REGISTER_REQUEST, 
+    user 
+})
 
-const login=(username, password)=>(dispatch,getState)=>{
+const signUpsuccess = (user) => ({
+    type: userConstants.REGISTER_SUCCESS,
+    user 
+})
+
+const signFailure = (error) => ({
+   type: userConstants.REGISTER_FAILURE, 
+   error 
+})
+
+
+const login=(username, password)=>(dispatch)=>{
 
     dispatch(request({username,password}));
     
      return userService.login(username,password)
-      .then(resp=>{
-          dispatch( success({username,password})  )
-      })
+      .then(resp=> dispatch( success({username,password}) ))
       .catch(err=>{
         dispatch( failure(err) )
         dispatch( alertActions.error('Error: '+err) )
@@ -37,12 +50,19 @@ function logout() {
     // complete this function
 }
 
-function register(user) {
+const register = (user) => dispatch => {
     // return the promise using fetch which dispatches appropriately 
-
-    function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
-    function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+    dispatch(signUprequest(user));
+    
+     return userService.register(user)
+      .then(resp=>{
+          dispatch( alertActions.success('Registration successful') )
+          dispatch( signUpsuccess(user)  )
+      })
+      .catch(err=>{
+        dispatch( signFailure(err) )
+        dispatch( alertActions.error('Error: '+err) )
+      })
 }
 
 export const userActions = {
